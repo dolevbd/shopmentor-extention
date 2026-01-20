@@ -1,0 +1,1048 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ShopMentor AI – העוזר החכם לקניות אונליין</title>
+  <meta name="description" content="השווה מחירים, גלה הצעות חכמות וחסוך כסף בקניות אונליין בעזרת תוסף הדפדפן ShopMentor AI." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+  <style>
+    :root {
+      --bg: #020617;
+      --bg-alt: #020817;
+      --accent: #22c55e;
+      --accent-soft: rgba(34, 197, 94, 0.18);
+      --accent-strong: #4ade80;
+      --text-main: #f9fafb;
+      --text-muted: #9ca3af;
+      --border-subtle: rgba(148, 163, 184, 0.35);
+      --shadow-soft: 0 24px 80px rgba(15, 23, 42, 0.8);
+      --radius-lg: 20px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "Heebo", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top right, #0f172a 0, #020617 55%);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .page {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 24px 16px 80px;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      margin-bottom: 40px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-logo {
+      width: 44px;
+      height: 44px;
+      border-radius: 999px;
+      overflow: hidden;
+      flex-shrink: 0;
+      box-shadow: 0 0 0 1px rgba(148, 163, 184, 0.4);
+    }
+
+    .brand-logo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .brand-title {
+      font-weight: 700;
+      font-size: 22px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .brand-badge {
+      padding: 2px 10px;
+      border-radius: 999px;
+      background: rgba(34, 197, 94, 0.1);
+      color: var(--accent-strong);
+      font-size: 12px;
+      font-weight: 500;
+    }
+
+    .nav-cta {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .nav-link {
+      font-size: 14px;
+      color: var(--text-muted);
+      padding: 4px 0;
+      position: relative;
+    }
+
+    .nav-link::after {
+      content: "";
+      position: absolute;
+      right: 0;
+      bottom: -4px;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(90deg, #22c55e, #22c55e80);
+      border-radius: 999px;
+      transition: width 0.25s ease;
+    }
+
+    .nav-link:hover::add {
+      width: 100%;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 18px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #22c55e, #4ade80);
+      color: #020617;
+      font-weight: 600;
+      font-size: 14px;
+      box-shadow: 0 10px 30px rgba(34, 197, 94, 0.4);
+      border: none;
+      cursor: pointer;
+      transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 16px 40px rgba(34, 197, 94, 0.5);
+      background: linear-gradient(135deg, #22c55e, #22c55e);
+    }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 18px;
+      border-radius: 999px;
+      border: 1px solid var(--border-subtle);
+      color: var(--text-main);
+      background: transparent;
+      font-size: 14px;
+      cursor: pointer;
+      transition: background 0.15s ease, border-color 0.15s ease, transform 0.15s ease;
+    }
+
+    .btn-secondary:hover {
+      background: rgba(148, 163, 184, 0.15);
+      border-color: rgba(148, 163, 184, 0.6);
+      transform: translateY(-1px);
+    }
+
+    main {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+      gap: 40px;
+      align-items: center;
+    }
+
+    .hero-copy h1 {
+      font-size: clamp(32px, 4vw, 42px);
+      line-height: 1.2;
+      margin-bottom: 16px;
+    }
+
+    .hero-copy h1 span {
+      color: var(--accent-strong);
+    }
+
+    .hero-copy p {
+      color: var(--text-muted);
+      line-height: 1.8;
+      margin-bottom: 24px;
+      max-width: 32rem;
+    }
+
+    .hero-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 8px;
+      margin-bottom: 24px;
+    }
+
+    .tag {
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      font-size: 12px;
+      color: var(--text-muted);
+      background-color: rgba(15, 23, 42, 0.9);
+      backdrop-filter: blur(6px);
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+      margin-bottom: 24px;
+    }
+
+    .hero-note {
+      font-size: 13px;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .hero-visual {
+      position: relative;
+    }
+
+    .glass-card {
+      background: linear-gradient(135deg, rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0.6));
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      box-shadow: var(--shadow-soft);
+      padding: 20px 18px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .glow {
+      position: absolute;
+      inset: -40px;
+      background: radial-gradient(circle at top left, rgba(56, 189, 248, 0.4), transparent 55%);
+      opacity: 0.5;
+      pointer-events: none;
+      mix-blend-mode: screen;
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+    }
+
+    .card-title {
+      font-size: 15px;
+      font-weight: 600;
+    }
+
+    .chip {
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(15, 118, 110, 0.2);
+      color: #5eead4;
+      font-size: 11px;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+    }
+
+    .card-product {
+      background: rgba(15, 23, 42, 0.9);
+      border-radius: 14px;
+      padding: 16px;
+      border: 1px solid rgba(30, 64, 175, 0.5);
+      margin-bottom: 14px;
+    }
+
+    .card-product-title {
+      font-size: 14px;
+      font-weight: 500;
+      margin-bottom: 6px;
+    }
+
+    .card-price {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .card-price-main {
+      font-size: 26px;
+      font-weight: 700;
+      color: var(--accent-strong);
+    }
+
+    .card-price-badge {
+      font-size: 11px;
+      padding: 4px 8px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: var(--accent-strong);
+    }
+
+    .card-section-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-main);
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .card-text {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin-bottom: 10px;
+    }
+
+    .card-divider {
+      border-top: 1px solid rgba(51, 65, 85, 0.8);
+      margin: 12px 0;
+    }
+
+    .card-meta {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+      font-size: 12px;
+    }
+
+    .meta-item span {
+      display: block;
+    }
+
+    .meta-label {
+      color: var(--text-muted);
+      font-size: 11px;
+    }
+
+    .meta-value {
+      font-weight: 500;
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 6px;
+    }
+
+    .pill {
+      font-size: 11px;
+      padding: 4px 8px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      color: var(--text-muted);
+    }
+
+    .pill--highlight {
+      border-color: rgba(34, 197, 94, 0.7);
+      color: var(--accent-strong);
+      background: rgba(22, 163, 74, 0.18);
+    }
+
+    .badge-floating {
+      position: absolute;
+      top: 14px;
+      left: 14px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.85);
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      font-size: 11px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--text-muted);
+    }
+
+    .badge-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: var(--accent-strong);
+      box-shadow: 0 0 8px rgba(34, 197, 94, 0.8);
+    }
+
+    .section {
+      margin-top: 72px;
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 24px;
+      gap: 12px;
+    }
+
+    .section-title {
+      font-size: 22px;
+      font-weight: 600;
+    }
+
+    .section-subtitle {
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 20px;
+    }
+
+    .feature-card {
+      background: rgba(15, 23, 42, 0.9);
+      border-radius: 16px;
+      border: 1px solid var(--border-subtle);
+      padding: 18px 16px 16px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .feature-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at top, rgba(34, 197, 94, 0.25), transparent 55%);
+      opacity: 0;
+      transition: opacity 0.25s ease;
+      pointer-events: none;
+    }
+
+    .feature-card:hover::before {
+      opacity: 0.9;
+    }
+
+    .feature-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.9);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 10px;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+    }
+
+    .feature-title {
+      font-size: 15px;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    .feature-text {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+
+    .how-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .step-card {
+      background: rgba(15, 23, 42, 0.9);
+      border-radius: 16px;
+      border: 1px dashed var(--border-subtle);
+      padding: 16px;
+      position: relative;
+    }
+
+    .step-number {
+      width: 28px;
+      height: 28px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--accent-strong);
+      margin-bottom: 10px;
+    }
+
+    .step-title {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .step-text {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+
+    .pill-bar {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .pill-bar-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: var(--accent-strong);
+      box-shadow: 0 0 6px rgba(34, 197, 94, 0.8);
+    }
+
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+    }
+
+    .plan-card {
+      background: rgba(15, 23, 42, 0.9);
+      border-radius: 18px;
+      border: 1px solid var(--border-subtle);
+      padding: 20px 18px 18px;
+      position: relative;
+    }
+
+    .plan-card--highlight {
+      border-color: var(--accent);
+      box-shadow: 0 20px 60px rgba(34, 197, 94, 0.4);
+    }
+
+    .plan-label {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+
+    .plan-price {
+      font-size: 26px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .plan-sub {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+    }
+
+    .plan-list {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 16px;
+    }
+
+    .plan-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+
+    .plan-list li::before {
+      content: "✓";
+      color: var(--accent-strong);
+      margin-top: 1px;
+      font-size: 12px;
+    }
+
+    .plan-badge {
+      position: absolute;
+      top: 14px;
+      left: 18px;
+      padding: 3px 9px;
+      border-radius: 999px;
+      background: var(--accent);
+      color: #020617;
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    .faq-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 18px;
+    }
+
+    .faq-item {
+      border-radius: 14px;
+      border: 1px solid var(--border-subtle);
+      padding: 16px 18px;
+      background: rgba(15, 23, 42, 0.9);
+    }
+
+    .faq-q {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    .faq-a {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+
+    footer {
+      border-top: 1px solid rgba(31, 41, 55, 0.9);
+      padding: 18px 16px 28px;
+      margin-top: auto;
+      color: var(--text-muted);
+      font-size: 13px;
+    }
+
+    footer .footer-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    footer a {
+      color: var(--accent-strong);
+      text-decoration: none;
+    }
+
+    @media (max-width: 900px) {
+      main {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .page {
+        padding: 20px 16px 56px;
+      }
+
+      .grid-3 {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .how-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <div class="brand">
+        <div class="brand-logo">
+          <img src="extension/icons/icon128.png" alt="ShopMentor AI logo" />
+        </div>
+        <div>
+          <div class="brand-title">
+            ShopMentor&nbsp;AI
+            <span>💰</span>
+          </div>
+          <div class="brand-badge">תוסף כרום לסמארט שופינג</div>
+        </div>
+      </div>
+      <div class="nav-cta">
+        <a class="nav-link" href="#how-it-works">איך זה עובד</a>
+        <a class="nav-link" href="#features">יתרונות</a>
+        <a class="nav-link" href="#pricing">מחירים</a>
+        <a class="nav-link" href="#faq">שאלות נפוצות</a>
+        <a
+          class="btn-primary"
+          href="https://chrome.google.com/webstore/detail/YOUR_EXTENSION_ID"
+          target="_blank"
+          rel="noopener"
+        >
+          <span>התקנת התוסף ל‑Chrome</span>
+        </a>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero-copy">
+        <h1>
+          קונים אונליין?<br />
+          <span>תנו ל‑AI להתמקח בשבילכם.</span>
+        </h1>
+        <p>
+          ShopMentor AI הוא תוסף כרום שעוזר לכם לזהות מחירים חריגים, להשוות מחירים באמזון,
+          איביי ו‑AliExpress, ולקבל המלצות חכמות – ישירות מעל כפתור <strong>הוסף לעגלה</strong>.
+        </p>
+
+        <div class="hero-tags">
+          <div class="tag">תומך ב‑Amazon, eBay, AliExpress, KSP</div>
+          <div class="tag">ניתוח מחירים בשקלים ובדולרים</div>
+          <div class="tag">עובד בזמן אמת – בלי לצאת מהאתר</div>
+        </div>
+
+        <div class="hero-actions">
+          <a
+            class="btn-primary"
+            href="https://chrome.google.com/webstore/detail/YOUR_EXTENSION_ID"
+            target="_blank"
+            rel="noopener"
+          >
+            <span>התקן עכשיו בחינם</span>
+          </a>
+          <a class="btn-secondary" href="#demo">
+            <span>צפו בדמו</span>
+          </a>
+        </div>
+
+        <div class="hero-note">
+          <span>✅</span>
+          <span>ניסוי ראשון לגמרי בחינם – בלי כרטיס אשראי</span>
+        </div>
+      </section>
+
+      <section class="hero-visual" id="demo">
+        <div class="glass-card">
+          <div class="glow"></div>
+          <div class="badge-floating">
+            <span class="badge-dot"></span>
+            <span>AI מנתח את המחיר שלך</span>
+          </div>
+          <div class="card-header">
+            <div>
+              <div class="card-title">SteelSeries Arctis Nova Pro Wireless</div>
+              <div class="tag">Amazon · USD • משלוח לישראל</div>
+            </div>
+            <div class="card-price">
+              <span class="card-price-main">$289</span>
+              <span class="card-price-badge">מחיר נוכחי</span>
+            </div>
+          </div>
+
+          <div class="card-section">
+            <div class="card-section-title">
+              <span>💡 המלצת קנייה חכמה</span>
+            </div>
+            <p class="card-text">
+              המחיר הנוכחי נמוך מהממוצע בשוק עבור דגם זה. אם אתם צריכים את המוצר עכשיו – זה
+              זמן מצוין לרכישה. אם תוכלו לחכות, יש סיכוי למבצע קל בסייל הקרוב.
+            </p>
+          </div>
+
+          <div class="card-divider"></div>
+
+          <div class="card-section">
+            <div class="card-section-title">
+              <span>🏷️ חלופות זולות יותר</span>
+            </div>
+            <div class="pill-row">
+              <span class="pill pill--highlight">Razer BlackShark V2 Pro – זול יותר ב‑₪180</span>
+              <span class="pill">HyperX Cloud II – תמורה מצוינת</span>
+              <span class="pill">Logitech G Pro X – ל‑FPS תחרותי</span>
+            </div>
+          </div>
+
+          <div class="card-divider"></div>
+
+          <div class="card-meta">
+            <div class="meta-item">
+              <span class="meta-label">סגנון קנייה</span>
+              <span class="meta-value">גיימינג כבד</span>
+            </div>
+            <div class="meta-item">
+              <span class="meta-label">תקופת אחריות</span>
+              <span class="meta-value">שנתיים</span>
+            </div>
+            <div class="meta-item">
+              <span class="meta-label">מחיר ממוצע</span>
+              <span class="meta-value">₪ 1,390</span>
+            </div>
+            <div class="meta-item">
+              <span class="meta-label">חיסכון משוער</span>
+              <span class="meta-value accent">₪ 220‑350</span>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <section class="section" id="features">
+      <div class="section-header">
+        <div>
+          <h2 class="section-title">למה לקוחות אוהבים את ShopMentor AI?</h2>
+          <p class="section-subtitle">
+            בנינו את התוסף הזה כדי לעזור לכם לקנות חכם יותר – בלי לשבור את הראש ובלי לבזבז שעות
+            על השוואת מחירים.
+          </p>
+        </div>
+        <div class="pill-bar">
+          <span class="pill-bar-dot"></span>
+          <span>מותאם לשוק הישראלי – שקלים, מבצעים וחגים</span>
+        </div>
+      </div>
+
+      <div class="grid-3">
+        <div class="feature-card">
+          <div class="feature-icon">🔍</div>
+          <h3 class="feature-title">השוואת מחירים אוטומטית</h3>
+          <p class="feature-text">
+            פעולה אחת מעל כפתור הקנייה – וה‑AI שלנו סורק עשרות הצעות מאמזון, איביי, AliExpress
+            ו‑KSP כדי לוודא שאתם לא משלמים יותר ממה שצריך.
+          </p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">💱</div>
+          <h3 class="feature-title">מחירים בדולר &amp; בשקל</h3>
+          <p class="feature-text">
+            ShopMentor מזהה אוטומטית באיזו מטבע מוצג המחיר – ומחשב עבורכם האם זה באמת משתלם
+            גם במונחים של שקלים, כולל מיסים ומשלוח.
+          </p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">✨</div>
+          <h3 class="feature-title">המלצות על דגמים חלופיים</h3>
+          <p class="feature-text">
+            לפעמים הדגם שאתם בוחנים כבר מיושן או פשוט יקר מדי. התוסף יציע לכם אלטרנטיבות חכמות,
+            עם יחס עלות‑תועלת טוב יותר.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="how-it-works">
+      <div class="section-header">
+        <div>
+          <h2 class="section-title">איך זה עובד בפועל?</h2>
+          <p class="section-subtitle">
+            תהליך הרכישה נשאר בדיוק אותו דבר – פשוט עם הרבה יותר ביטחון ושקט נפשי.
+          </p>
+        </div>
+      </div>
+
+      <div class="how-grid">
+        <div class="step-card">
+          <div class="step-number">1</div>
+          <h3 class="step-title">מתקינים בלחיצת כפתור</h3>
+          <p class="step-text">
+            מתקינים את התוסף ל‑Chrome מחנות ההרחבות הרשמית. אין צורך ברישום מסובך או בהזנת
+            פרטי אשראי.
+          </p>
+        </div>
+
+        <div class="step-card">
+          <div class="step-number">2</div>
+          <h3 class="step-title">נכנסים לאתר הקניות</h3>
+          <p class="step-text">
+            גולשים כרגיל ל‑Amazon, eBay, AliExpress או KSP. אין צורך לפתוח אפליקציה חיצונית –
+            הכול קורה מעל הדפדפן.
+          </p>
+        </div>
+
+        <div class="step-card">
+          <div class="step-number">3</div>
+          <h3 class="step-title">מעבירים את העכבר</h3>
+          <p class="step-text">
+            מרחפים עם העכבר מעל כפתור הקנייה או כפתור הוספה לסל – ו‑ShopMentor AI קופץ אוטומטית
+            עם כל המידע שאתם צריכים.
+          </p>
+        </div>
+
+        <div class="step-card">
+          <div class="step-number">4</div>
+          <h3 class="step-title">מקבלים החלטה חכמה</h3>
+          <p class="step-text">
+            רואים אם המחיר טוב, האם שווה לחכות למבצע, ואם יש אלטרנטיבות מומלצות – ומקבלים
+            החלטה שקולה.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="pricing">
+      <div class="section-header">
+        <div>
+          <h2 class="section-title">משלמים פעם אחת – ונהנים לכל החיים</h2>
+          <p class="section-subtitle">
+            תנסו את ShopMentor AI על הקניות הבאות שלכם – ורק אם חסכנו לכם כסף, תעברו לתכנית ההשקה
+            החד פעמית. המחיר המיוחד זמין למשך החודשיים הקרובים בלבד.
+          </p>
+        </div>
+      </div>
+
+      <div class="pricing-short">
+        <div class="pricing-grid">
+          <div class="plan-card">
+            <div class="plan-label">תכנית התחלה</div>
+            <div class="plan-price">חינם</div>
+            <div class="plan-sub">עד 5 בדיקות מחיר ללא עלות</div>
+            <ul class="plan-list">
+              <li>ניתוח מחירי מוצרים בשקלים ובדולרים</li>
+              <li>עד 5 הפעלות בחודש ללא תשלום</li>
+              <li>תמיכה ב‑Amazon, eBay, AliExpress ו‑KSP</li>
+            </ul>
+            <a
+              class="btn-secondary"
+              href="https://chrome.google.com/webstore/detail/YOUR_EXTENSION_ID"
+              target="_blank"
+              rel="noopener"
+            >
+              התקנה בחינם
+            </a>
+          </div>
+
+          <div class="plan-card plan-card--highlight">
+            <div class="plan-badge">מומלץ</div>
+            <div class="plan-label">תכנית פרימיום</div>
+            <div class="plan-price">$10&nbsp;חד‑פעמי</div>
+            <div class="plan-sub">תשלום חד‑פעמי לתמיד – גישה מלאה לכל יכולות ה‑AI, ללא הגבלת זמן.</div>
+            <ul class="plan-list">
+              <li>בדיקות מחיר ללא הגבלה, ללא מגבלת זמן</li>
+              <li>השוואת מחירים מעשרות אתרים בינלאומיים</li>
+              <li>המלצות על דגמים חלופיים ותזמון קנייה אידיאלי</li>
+              <li>עדכוני מחירים והתראות על ירידות משמעותיות</li>
+              <li>מחיר השקה לזמן מוגבל – לאחר מכן המחיר צפוי להתעדכן</li>
+            </ul>
+            <a
+              class="btn-primary"
+              href="https://YOUR-LEMNSQUEEZY-LINK"
+              target="_blank"
+              rel="noopener"
+            >
+              התחלת ניסיון פרימיום
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="faq">
+      <div class="section-header">
+        <div>
+          <h2 class="section-title">שאלות נפוצות</h2>
+          <p class="section-subtitle">
+            עוד מתלבטים? ריכזנו את השאלות הנפוצות ביותר – ותמיד אפשר לפנות אלינו לעזרה.
+          </p>
+        </div>
+      </div>
+
+      <div class="faq-grid">
+        <div class="faq-item">
+          <h3 class="faq-q">איך מתקינים את התוסף?</h3>
+          <p class="faq-a">
+            לחצו על הכפתור &quot;התקנת התוסף ל‑Chrome&quot;, אשרו את ההתקנה בדפדפן – וזה הכול.
+            מהרגע שההתקנה תסתיים, האייקון של ShopMentor AI יופיע בסרגל הכלים שלכם.
+          </p>
+        </div>
+
+        <div class="faq-item">
+          <h3 class="faq-q">האם אתם רואים את פרטי האשראי שלי?</h3>
+          <p class="faq-a">
+            לא. התשלום מתבצע דרך שירות תשלומים חיצוני ומאובטח (כגון Lemon Squeezy / Stripe). אנחנו
+            לא שומרים אצלנו פרטי אשראי ולא ניגשים לחשבון הבנק שלכם.
+          </p>
+        </div>
+
+        <div class="faq-item">
+          <h3 class="faq-q">האם זה עובד רק על מחשב?</h3>
+          <p class="faq-a">
+            כרגע התוסף זמין לדפדפן Chrome במחשב. בקרוב נוסיף תמיכה גם בדפדפנים ודפדפני מובייל
+            נוספים.
+          </p>
+        </div>
+
+        <div class="faq-item">
+          <h3 class="faq-q">למי זה מתאים?</h3>
+          <p class="faq-a">
+            לכל מי שקונה אונליין – החל ממי שמזמין פעם ב‑חודש, ועד לחובבי גאדג'טים כבדים. אם אתם
+            רוצים לוודא שאתם מקבלים את המחיר הטוב ביותר – ShopMentor AI כאן בשבילכם.
+          </p>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <footer>
+    <div class="footer-inner">
+      <div>© <span id="year"></span> ShopMentor AI – כל הזכויות שמורות.</div>
+      <div>
+        <a href="https://github.com/YOUR_GITHUB_USERNAME/pricefinder-release" target="_blank" rel="noopener">
+          קוד המקור ב‑GitHub
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Set current year in footer
+    (function () {
+      var yearEl = document.getElementById("year");
+      if (yearEl) {
+        yearEl.textContent = new Date().getFullYear();
+      }
+      // Smooth scroll for anchor links
+      document.querySelectorAll('a[href^="#"]').forEach(function (link) {
+        link.addEventListener("click", function (e) {
+          var href = this.getAttribute("href");
+          if (!href || href === "#" || href === "#!") return;
+          var target = document.querySelector(href);
+          if (target) {
+            e.preventDefault();
+            window.scrollTo({
+              top: target.offsetTop - 80,
+              behavior: "smooth"
+            });
+          }
+        });
+      });
+    })();
+  </script>
+</body>
+</html>
+

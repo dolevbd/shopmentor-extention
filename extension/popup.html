@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="he">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ShopMentor AI</title>
+  <style>
+    body {
+      width: 300px;
+      padding: 20px;
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      direction: rtl;
+      text-align: right;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+    }
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    .header-title {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 20px;
+      font-weight: bold;
+    }
+    .usage-badge {
+      font-size: 11px;
+      opacity: 0.9;
+      color: #ffffff;
+      white-space: nowrap;
+    }
+    .status {
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 8px;
+      padding: 12px;
+      backdrop-filter: blur(10px);
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="header-title">
+      <span>💰</span>
+      <span>ShopMentor AI</span>
+    </div>
+    <div id="usage-badge" class="usage-badge"></div>
+  </div>
+  
+  <div class="status">
+    <p>Extension active</p>
+    <p id="site-status">Checking site...</p>
+  </div>
+  
+  <div class="settings" style="margin-top: 20px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.3);">
+    <h3 style="font-size: 16px; margin-bottom: 10px;">⚙️ Settings</h3>
+    <label for="language-select" style="display: block; margin-bottom: 8px; font-size: 14px;">Language:</label>
+    <select id="language-select" style="width: 100%; padding: 8px; border-radius: 6px; border: none; background: rgba(255,255,255,0.9); color: #333; font-size: 14px;">
+      <option value="he">עברית (Hebrew)</option>
+      <option value="en">English</option>
+      <option value="ar">العربية (Arabic)</option>
+      <option value="ru">Русский (Russian)</option>
+      <option value="es">Español (Spanish)</option>
+      <option value="fr">Français (French)</option>
+      <option value="de">Deutsch (German)</option>
+    </select>
+    <p id="language-status" style="margin-top: 8px; font-size: 12px; opacity: 0.8;"></p>
+  </div>
+  
+  <script src="popup.js"></script>
+</body>
+</html>

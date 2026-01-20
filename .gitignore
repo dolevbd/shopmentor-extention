@@ -1,0 +1,14 @@
+# OS / editor files
+.DS_Store
+Thumbs.db
+*.log
+
+# Node / tooling
+node_modules/
+dist/
+build/
+
+# IDE
+.idea/
+.vscode/
+

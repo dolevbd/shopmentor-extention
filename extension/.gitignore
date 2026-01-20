@@ -1,0 +1,5 @@
+# Extension specific ignores
+*.crx
+*.pem
+config.js
+*.log

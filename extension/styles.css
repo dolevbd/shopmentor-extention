@@ -1,0 +1,15 @@
+/* ShopMentor AI Global Styles */
+/* These styles are injected into the page but Shadow DOM provides isolation */
+
+/* Prevent interference with page styles */
+#shopmentor-overlay {
+  all: initial;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Ensure overlay is always on top */
+#shopmentor-overlay {
+  position: fixed !important;
+  z-index: 999999 !important;
+  pointer-events: auto !important;
+}
